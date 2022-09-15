@@ -27,10 +27,13 @@ def run():
         print("¡Adivina la palabra!")
         print(str+"\n")
         letter = input("Ingrese una letra: ").strip()
-        if len(letter) > 1:
-            os.system("cls")
-            str = " "
+
+        try:
+            assert len(letter) == 1 and not letter.isnumeric(), "Error no haz ingresado una letra."
+        except AssertionError:
+            cleanConsole()
             print("Error no haz ingresado una letra.")
+            str = " "
             continue
 
         for i in letters:
@@ -39,12 +42,15 @@ def run():
                 count += 1
                 
         str = " "
-        if platform.system() == 'Windows':
-            os.system("cls")
-        else:
-            os.system("clear")
+        cleanConsole()
 
     print("Ganaste la palabra era "+word)
+
+def cleanConsole():
+    if platform.system() == 'Windows':
+        os.system("cls")
+    else:
+        os.system("clear")
 
 if __name__ == "__main__":
     run()
